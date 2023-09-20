@@ -1,0 +1,24 @@
+button {
+    padding: 0;
+    border: none;
+    background: none;
+}
+
+.custom-card {
+    margin: 15px; /* Adds a gap between the cards */
+    width: 350px; /* Reduces the card width */
+    max-height: 460px; /* Reduces the card height */
+  }
+  
+  /* .card-text-small {
+  font-size: 14px; 
+} */
+
+/* .card-text-medium {
+    font-size: 16px;
+    font-family: Arial, Helvetica, sans-serif;
+} */
+
+.custom-card-container {
+    margin: 120px;  
+  }

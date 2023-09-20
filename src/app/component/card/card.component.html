@@ -1,0 +1,30 @@
+<div class="custom-card-container my-4">
+  <div class="row">
+    <div class="col-md-4" *ngFor="let data of cardData[0]">
+      <div class="card custom-card">
+        <div class="card-header">
+          <div class="row">
+            <div class="col"><span class="card-text-small">{{ data.expense | uppercase }}</span></div>
+            <div class="col-auto"><button (click)="openBudget(data._id)">Edit</button></div>
+          </div>
+        </div>
+        <div class="card-body">
+          <h5 class="card-title">Expense Type</h5>
+          <h6 class="card-subtitle mb-2 text-muted"><span class="card-text-small">{{data.expenseType}}</span></h6>
+          <hr>
+          <h5 class="card-title">Expense</h5>
+          <h6 class="card-subtitle mb-2 text-muted"><span class="card-text-small">{{data.expense}}</span></h6>
+          <hr>
+          <h5 class="card-title">Estimated Price</h5>
+          <h6 class="card-subtitle mb-2 text-muted"><span class="card-text-small">{{data.estimatedPrice}}</span></h6>
+          <hr>
+          <h5 class="card-title">Assigned To</h5>
+          <h6 class="card-subtitle mb-2 text-muted"><span class="card-text-small">{{data.assignedTo}}</span></h6>
+          <hr>
+          <h5 class="card-title"><span class="card-text-medium">Last Updated Date</span></h5>
+          <h6 class="card-subtitle mb-2 text-muted"><span class="card-text-small">{{data.lastUpdatedDate}}</span></h6>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

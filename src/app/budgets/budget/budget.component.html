@@ -1,0 +1,20 @@
+<form [formGroup]="this.budgetForm" *ngIf="isOpen" (ngSubmit)="onSubmit()">
+    <div class="mb-3">
+      <label for="expenseType" class="form-label">expenseType</label>
+      <input type="text" class="form-control" id="expenseType" formControlName="expenseType">
+    </div>
+    <div class="mb-3">
+      <label for="expense" class="form-label">expense</label>
+      <input type="text" class="form-control" id="expense" formControlName="expense">
+    </div>
+    <div class="mb-3">
+        <label for="estimatedPrice" class="form-label">estimatedPrice</label>
+        <input type="text" class="form-control" id="estimatedPrice" formControlName="estimatedPrice">
+      </div>
+      <div class="mb-3">
+        <label for="assignedTo" class="form-label">assignedTo</label>
+        <input type="text" class="form-control" id="assignedTo" formControlName="assignedTo">
+      </div>
+      <div *ngIf="!budgetForm.valid && budgetForm.touched" class="help-block">Please fill all the data</div>
+    <button type="submit" class="btn btn-primary">Submit</button>
+  </form>
