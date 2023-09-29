@@ -93,7 +93,7 @@ export class AuthService {
     
 
     private handleError(errorRes: HttpErrorResponse ) {
-        return throwError("An unknown error occured");
+        return throwError(errorRes);
         
     }
 
@@ -108,7 +108,7 @@ export class AuthService {
         }
     
         const user = new User(email, userId, token, expirationDate);
-        
+                
         this.user.next(user);
         localStorage.setItem('userId', userId);
         localStorage.setItem('userData', JSON.stringify(user));

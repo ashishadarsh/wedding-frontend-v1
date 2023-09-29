@@ -46,7 +46,6 @@ export class AuthComponent {
         this.router.navigate(['/budgets']);
       },
       error: (error) => {
-        console.log({ error });
         this.error = "An error occurred!";
         this.isLoading = false;
       }
