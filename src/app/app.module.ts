@@ -9,7 +9,10 @@ import { BudgetsComponent } from './budgets/budgets.component';
 import { GuestsComponent } from './guests/guests.component';
 import { BudgetComponent } from './budgets/budget/budget.component';
 import { AppRoutingModule } from './app-routing.module';
-import { ReactiveFormsModule } from '@angular/forms';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
+import { AuthComponent } from './auth/auth.component';
+import { LoadingSpinnerComponent } from './shared/loading-spinner/loading-spinner.component';
+import { HeaderComponent } from './header/header.component';
 
 @NgModule({
   declarations: [
@@ -18,13 +21,17 @@ import { ReactiveFormsModule } from '@angular/forms';
     CardComponent,
     BudgetsComponent,
     GuestsComponent,
-    BudgetComponent
+    BudgetComponent,
+    AuthComponent,
+    LoadingSpinnerComponent,
+    HeaderComponent
   ],
   imports: [
     BrowserModule,
     HttpClientModule,
     AppRoutingModule,
-    ReactiveFormsModule
+    ReactiveFormsModule,
+    FormsModule
   ],
   providers: [],
   bootstrap: [AppComponent]
