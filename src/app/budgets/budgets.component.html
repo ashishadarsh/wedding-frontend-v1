@@ -1,2 +1,12 @@
-<div class="col-auto"><button (click)="AddBudget()">Add Budget</button></div>
+<div class="add-button-container">
+    <button class="add-button" (click)="AddBudget()">Add</button>
+</div>
+<div class="pagination">
+    <button [disabled]="currentPage === 1" (click)="onPrevious()" class="pagination-button">&#8592;</button>
+    <span class="pagination-current-page">{{currentPage}}</span> Of 
+    <span class="pagination-total-pages">{{totalPageCount}}</span>
+    <button [disabled]="currentPage === totalPageCount" (click)="onNext()" class="pagination-button">&#8594;</button>
+</div>
+
+
 <app-card></app-card>

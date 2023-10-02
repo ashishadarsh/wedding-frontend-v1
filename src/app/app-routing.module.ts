@@ -4,11 +4,12 @@ import { BudgetsComponent } from "./budgets/budgets.component";
 import { GuestsComponent } from "./guests/guests.component";
 import { BudgetComponent } from "./budgets/budget/budget.component";
 import { AuthComponent } from "./auth/auth.component";
+import { AuthGuard } from "./auth/auth.guard";
 
 
 const appRoutes: Routes = [
     {path: 'budgets', component: BudgetsComponent},
-    {path: 'guests', component: GuestsComponent},
+    {path: 'guests', component: GuestsComponent, canActivate: [AuthGuard]},
     {path:'budgets/edit/:id', component: BudgetComponent},
     {path:'budgets/add', component: BudgetComponent},
     {path: 'auth', component: AuthComponent},

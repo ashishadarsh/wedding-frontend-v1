@@ -4,21 +4,24 @@ const client = new  GraphQLClient('http://localhost:9000/graphql');
 
 
 
-export async function getBudgets() {
+export async function getBudgets(limit, offset) {
     const query =  gql`
-    query Budget {
-        budgets {
-          _id
-          expenseType
-          expense
-          estimatedPrice
-          assignedTo
-          lastUpdatedDate
+    query Budget($limit: Int, $offset: Int) {
+        budgets(limit: $limit, offset: $offset) {
+            items {
+            _id
+            expense
+            expenseType
+            assignedTo
+            estimatedPrice
+            lastUpdatedDate
+            }
+            totalCount
         }
-      }
+    }
     `;
 
-    const { budgets } = await client.request(query);
+    const { budgets } = await client.request(query,{limit, offset});
     return budgets
 }
 
