@@ -1,7 +1,7 @@
 import { Component, OnDestroy, OnInit } from '@angular/core';
 import { AuthService } from './auth/auth.service';
 import { Subscription } from 'rxjs';
-import { Router } from '@angular/router';
+import { ActivatedRoute, NavigationEnd, Router } from '@angular/router';
 
 @Component({
   selector: 'app-root',
@@ -11,13 +11,12 @@ import { Router } from '@angular/router';
 export class AppComponent implements OnInit{
   
   title = 'wedding-Plannar';
-
-
-  constructor(private authService: AuthService, private router: Router) {
+  constructor(private authService: AuthService, private router: Router, private activatedRoute: ActivatedRoute) {
   }
 
   ngOnInit() {
      this.authService.autoLogin();
+     
   }
 
 }

@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { Subscription } from 'rxjs';
 import { cardDataService } from 'src/app/cardData.service';
+import {deleteBudget} from '../../graphql/queries.js';
 
 @Component({
   selector: 'app-card',
@@ -22,6 +23,8 @@ export class CardComponent implements OnInit {
   ngOnInit() {
     // Subscribe to data$
     this.dataSubscription = this.cardDataService.data$.subscribe((data) => {
+      console.log({data});
+      
       this.cardData = data;
     });
   }
@@ -35,5 +38,10 @@ export class CardComponent implements OnInit {
 
   openBudget(id) {
     this.router.navigate(['edit',id], { relativeTo: this.route });
+  }
+
+  deleteBudget(id) {
+    this.cardDataService.deleteCardData(id);
+    deleteBudget(id);
   }
 }

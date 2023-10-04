@@ -15,6 +15,7 @@ export class BudgetsComponent {
   private countDataSubscription: Subscription;
   constructor(private cardDataService: cardDataService, private router: Router, private route: ActivatedRoute) {
     this.currentPage = this.cardDataService.currentPage;
+    this.cardDataService.getBudgetsData(this.cardDataService.Budgets_Per_Page, (this.currentPage-1) * this.cardDataService.Budgets_Per_Page);
     this.countDataSubscription = this.cardDataService.countData$.subscribe((data) => {
       console.log("inside card component",data);
       
@@ -48,5 +49,9 @@ export class BudgetsComponent {
       this.currentPage = this.cardDataService.currentPage;
       this.cardDataService.getBudgetsData(this.cardDataService.Budgets_Per_Page, (this.currentPage-1) * this.cardDataService.Budgets_Per_Page);
     }
+  }
+
+  ngOnDestroy() {
+    this.countDataSubscription.unsubscribe();
   }
 }

@@ -29,6 +29,9 @@ export class AuthComponent {
     console.log("form",form.value);
     const email = form.value.email;
     const password = form.value.password;
+    const firstName = form.value.firstName;
+    const lastName = form.value.lastName;
+    const marriageDate: Date = form.value.weddingDate;
     this.isLoading = true;
 
     let authObs: Observable<AuthResponseData>;
@@ -36,14 +39,14 @@ export class AuthComponent {
     if(this.isLoginMode) {
       authObs = this.authService.Login(email, password);
     } else {
-      authObs = this.authService.signUp(email, password);
+      authObs = this.authService.signUp(email, password, firstName, lastName, marriageDate );
     }
 
     authObs.subscribe({
       next: (resData: AuthResponseData) => {
         console.log({ resData });
         this.isLoading = false;
-        this.router.navigate(['/budgets']);
+        this.router.navigate(['/']);
       },
       error: (error) => {
         this.error = "An error occurred!";

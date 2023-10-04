@@ -5,24 +5,24 @@
         <div class="card-header">
           <div class="row">
             <div class="col"><span class="card-text-small">{{ data.expense | uppercase }}</span></div>
-            <div class="col-auto"><button (click)="openBudget(data._id)">Edit</button></div>
+            <div class="col-auto button-container">
+              <button mat-icon-button class="edit-button" (click)="openBudget(data._id)">
+                <i class="fa fa-pencil"></i>
+              </button>
+              <button mat-icon-button class="delete-button" (click)="deleteBudget(data._id)">
+                <i class="fa fa-trash"></i>
+              </button>
+            </div>
           </div>
         </div>
         <div class="card-body">
-          <h5 class="card-title">Expense Type</h5>
-          <h6 class="card-subtitle mb-2 text-muted"><span class="card-text-small">{{data.expenseType}}</span></h6>
+          <h5 class="card-subtitle mb-2 text-muted">{{ data.expenseType }}</h5>
           <hr>
-          <h5 class="card-title">Expense</h5>
-          <h6 class="card-subtitle mb-2 text-muted"><span class="card-text-small">{{data.expense}}</span></h6>
+          <p class="card-text"><strong>Expense:</strong> {{ data.expense }}</p>
+          <p class="card-text"><strong>Estimated Price:</strong> {{ data.estimatedPrice }}</p>
+          <p class="card-text"><strong>Assigned To:</strong> {{ data.assignedTo }}</p>
           <hr>
-          <h5 class="card-title">Estimated Price</h5>
-          <h6 class="card-subtitle mb-2 text-muted"><span class="card-text-small">{{data.estimatedPrice}}</span></h6>
-          <hr>
-          <h5 class="card-title">Assigned To</h5>
-          <h6 class="card-subtitle mb-2 text-muted"><span class="card-text-small">{{data.assignedTo}}</span></h6>
-          <hr>
-          <h5 class="card-title"><span class="card-text-medium">Last Updated Date</span></h5>
-          <h6 class="card-subtitle mb-2 text-muted"><span class="card-text-small">{{data.lastUpdatedDate}}</span></h6>
+          <p class="card-text"><strong>Last Updated Date:</strong> {{ data.lastUpdatedDate }}</p>
         </div>
       </div>
     </div>

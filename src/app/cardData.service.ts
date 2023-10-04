@@ -21,10 +21,10 @@ export class cardDataService {
         try {
             const budgets = await getBudgets(limit, offset);
             console.log("this.currentPage * this.Budgets_Per_Page", this.currentPage * this.Budgets_Per_Page);
-            console.log({ budgets });
+            console.log("inside carddataservice", budgets);
           this.cardData = [];
             this.cardData.push(...budgets.items); // Add the budget object to the cardData array
-            this.dataSubject.next(budgets.items);
+            this.dataSubject.next(this.cardData);
             this.totalPageCount = budgets.totalCount/ this.Budgets_Per_Page;
             this.countSubject.next(budgets);
             // Check if cardData contains 4 objects and then merge them into the main array
@@ -53,4 +53,11 @@ export class cardDataService {
     async getCardData(id) {
         return getBudgetById(id);
     }
+
+    deleteCardData(id) {
+        this.cardData = this.cardData.filter(item => {
+          return item._id !== id; // Use '!==' to exclude the matching item
+        });
+        this.dataSubject.next(this.cardData);
+      }
 }

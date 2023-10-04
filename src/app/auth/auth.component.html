@@ -1,29 +1,36 @@
 <div class="container">
-    <div class="row justify-content-center">
-      <div class="col-md-6 mt-4"> <!-- Add mt-4 for margin from top -->
-        <div class="alert alert-danger" *ngIf="error">
-          <p>{{error}}</p>
-        </div>
-        <div *ngIf="isLoading" style="text-align: center;">
-          <app-loading-spinner></app-loading-spinner>
-        </div>
-        <form #authForm="ngForm" (ngSubmit)="onAuthSubmit(authForm)" *ngIf="!isLoading">
-          <div class="mb-3 form-group">
-            <label for="email" class="form-label">Email address</label>
-            <input type="email" class="form-control" id="email" ngModel name="email" required email>
-          </div>
-          <div class="mb-3">
-            <label for="password" class="form-label">Password</label>
-            <input type="password" class="form-control" id="password" ngModel name="password" required minlength="6">
-          </div>
-          <div class="mb-3 form-check">
-            <input type="checkbox" class="form-check-input" id="exampleCheck1">
-            <label class="form-check-label" for="exampleCheck1">Check me out</label>
-          </div>
-          <button type="submit" class="btn btn-primary" [disabled]="!authForm.valid">{{ isLoginMode ? 'Login' : 'Sign Up' }}</button> |
-          <button type="button" class="btn btn-primary" (click)="onSwitchMode()">Switch to {{ isLoginMode ? 'Sign Up' : 'Login' }}</button>
-        </form>
+  <div class="row justify-content-center">
+    <div class="col-md-6 mt-4"> <!-- Add mt-4 for margin from the top -->
+      <div class="alert alert-danger" *ngIf="error">
+        <p>{{ error }}</p>
       </div>
+      <div *ngIf="isLoading" style="text-align: center;">
+        <app-loading-spinner></app-loading-spinner>
+      </div>
+      <form #authForm="ngForm" (ngSubmit)="onAuthSubmit(authForm)" *ngIf="!isLoading">
+        <div class="mb-3 form-group">
+          <label for="email" class="form-label">Email address</label>
+          <input type="email" class="form-control" id="email" ngModel name="email" required email>
+        </div>
+        <div class="mb-3">
+          <label for="password" class="form-label">Password</label>
+          <input type="password" class="form-control" id="password" ngModel name="password" required minlength="6">
+        </div>
+        <div class="mb-3" *ngIf="!isLoginMode">
+          <label for="firstName" class="form-label">First Name</label>
+          <input type="text" class="form-control" id="firstName" ngModel name="firstName" required>
+        </div>
+        <div class="mb-3" *ngIf="!isLoginMode">
+          <label for="lastName" class="form-label">Last Name</label>
+          <input type="text" class="form-control" id="lastName" ngModel name="lastName" required>
+        </div>
+        <div class="mb-3" *ngIf="!isLoginMode">
+          <label for="weddingDate" class="form-label">Wedding Date</label>
+          <input type="date" class="form-control" id="weddingDate" ngModel name="weddingDate" required>
+        </div>
+        <button type="submit" class="btn btn-primary" [disabled]="!authForm.valid">{{ isLoginMode ? 'Login' : 'Sign Up' }}</button> |
+        <button type="button" class="btn btn-primary" (click)="onSwitchMode()">Switch to {{ isLoginMode ? 'Sign Up' : 'Login' }}</button>
+      </form>
     </div>
   </div>
-  
+</div>

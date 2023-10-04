@@ -1,0 +1,41 @@
+<div *ngIf="isHomeRoute">
+  <div class="head-container">
+    <h1>Wedding Diary</h1>
+   
+</div>
+<hr>
+<div class="jumbotron">
+    <h1 class="display-4 center-container hello">Hello, {{name}}!</h1>
+    <p class="lead center-container">Your marriage countdown</p>
+
+    <div class="center-container">
+        <div id="countdown" class="clock-timer">
+          <div class="clock-label">Days</div>
+          <div>{{ days }}</div>
+        </div>
+        <div id="countdown" class="clock-timer">
+          <div class="clock-label">Hours</div>
+          <div>{{ hours }}</div>
+        </div>
+        <div id="countdown" class="clock-timer">
+          <div class="clock-label">Minutes</div>
+          <div>{{ minutes }}</div>
+        </div>
+        <div id="countdown" class="clock-timer">
+          <div class="clock-label">Seconds</div>
+          <div>{{ seconds }}</div>
+        </div>
+        
+      </div>
+      <div class="center-container">
+        <span class="blue-text">{{ days }}-</span> days &nbsp;
+        <span class="green-text">{{ hours }}-</span> hours &nbsp;
+        <span class="orange-text">{{ minutes }}-</span> minutes &nbsp;
+        <span class="red-text">{{ seconds }}-</span> seconds
+      </div>
+
+    <p class="lead">
+      <a class="btn btn-primary btn-lg" href="#" role="button">Edit Wedding Date</a>
+    </p>
+  </div>
+</div>

@@ -3,6 +3,7 @@ import { Injectable } from "@angular/core";
 import { Subject, catchError, tap, throwError } from "rxjs";
 import { User } from "./user.model";
 import { Router } from "@angular/router";
+import {updateAuthToken} from '../graphql/queries.js'
 
 export interface AuthResponseData {
     kind: string;
@@ -12,6 +13,9 @@ export interface AuthResponseData {
     expiresIn: string;
     _id: string;
     registered?: boolean;
+    firstName: string;
+    lastName: string;
+    marriageDate: Date
 }
 
 @Injectable({
@@ -25,26 +29,24 @@ export class AuthService {
     constructor(private http: HttpClient, private router: Router) {
     }
 
-    signUp(email: string, password: string) {
+    signUp(email: string, password: string, firstName: string, lastName: string, marriageDate: Date) {
         return this.http.post<AuthResponseData>(`${this.API_URL}/signup`,
         {
             email: email,
             password: password,
+            firstName: firstName,
+            lastName: lastName,
+            marriageDate: marriageDate,
             returnSecureToken: true
         }).pipe(catchError(this.handleError),tap(resData => {
-            this.handleAuthentication(resData.email, resData._id, resData.idToken, 3600);
+            console.log({resData});
+            
+            this.handleAuthentication(resData.email, resData._id, resData.idToken, 3600, resData.firstName, resData.lastName, resData.marriageDate);
         }));
     }
 
     Login(email: string, password: string) {
         const token = localStorage.getItem('authToken');
-        // Check if the token is available before sending the request
-        if (token) {
-            const headers = new HttpHeaders({
-                'Content-Type': 'application/json',
-                'Authorization': 'Bearer ' + token,
-            });
-    
             return this.http.post<AuthResponseData>(
                 `${this.API_URL}/login`,
                 {
@@ -52,23 +54,19 @@ export class AuthService {
                     password: password,
                     returnSecureToken: true
                 },
-                { headers }
             ).pipe(
                 catchError(this.handleError),
                 tap(resData => {
-                    this.handleAuthentication(resData.email, resData._id, resData.idToken, 3600);
+                    this.handleAuthentication(resData.email, resData._id, resData.idToken, 3600,  resData.firstName, resData.lastName, resData.marriageDate);
                 })
             );
-        } else {
-            // Handle the case where the token is not available
-            return throwError('Token not available');
-        }
     }
 
     logout() {
         this.user.next(null);
         this.router.navigate(['/auth']);
         localStorage.removeItem('userData');
+        localStorage.removeItem('authToken');
         if (this.tokenExpirationTimer) {
             clearTimeout(this.tokenExpirationTimer);
         }
@@ -87,8 +85,9 @@ export class AuthService {
         // Convert both dates to UNIX timestamps
         const tokenExpirationTimestamp = new Date(authTokenExpiration).getTime();
         const currentTimestamp = new Date().getTime();
+      console.log({userData});
       
-        const loadedUser = new User(userData.email, userData.id, token, new Date(tokenExpirationTimestamp));
+        const loadedUser = new User(userData.email, userData.id, token, new Date(tokenExpirationTimestamp),userData.firstName, userData.lastName, userData.marriageDate);
       
         if (loadedUser.token && tokenExpirationTimestamp > currentTimestamp) {
           this.user.next(loadedUser);
@@ -109,8 +108,10 @@ export class AuthService {
         
     }
 
-    private handleAuthentication(email: string, userId: string, token: string, expiresIn: number) {
+    private handleAuthentication(email: string, userId: string, token: string, expiresIn: number, firstName:string, lastName: string, marriageDate?: Date) {
         const expirationDate = new Date(new Date().getTime() + expiresIn * 1000);
+        console.log("herererererre",marriageDate);
+        
         // Store the token and expiration date securely
         try {
             localStorage.setItem('authToken', token);
@@ -119,12 +120,14 @@ export class AuthService {
             console.error('Error storing data in localStorage:', e);
         }
     
-        const user = new User(email, userId, token, expirationDate);
+        const user = new User(email, userId, token, expirationDate,firstName, lastName, marriageDate);
+                console.log({user});
                 
         this.user.next(user);
         this.autoLogout(expiresIn * 1000);
         localStorage.setItem('userId', userId);
         localStorage.setItem('userData', JSON.stringify(user));
+        updateAuthToken(token);
     }
     
     

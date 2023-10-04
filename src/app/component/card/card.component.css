@@ -4,6 +4,14 @@ button {
     background: none;
 }
 
+.card-header {
+  background-color: rgb(255, 181, 181);
+}
+
+.card-body {
+  background-color: aliceblue;
+}
+
 .custom-card {
     margin: 15px; /* Adds a gap between the cards */
     width: 350px; /* Reduces the card width */
@@ -21,4 +29,8 @@ button {
 
 .custom-card-container {
     margin: 120px;  
+  }
+
+  .button-container button:first-child {
+    margin-right: 10px; /* Adjust the value to control the amount of space between buttons */
   }
